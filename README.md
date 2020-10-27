@@ -18,4 +18,4 @@ A project to parse Github Meta information to extract IPs/ CIDRs for whitelistin
     make build
     ```
 
-The output si produced in an nginx compatible format so you can use the binary executable in your cron to automatically refresh the list of IPs. 
+The output is produced in an nginx compatible format so you can use the binary executable in your cron to automatically refresh the list of IPs. 
