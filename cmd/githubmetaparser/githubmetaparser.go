@@ -3,7 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	resty "github.com/go-resty/resty/v2"
+	"github.com/go-resty/resty/v2"
+	"strings"
 	"time"
 )
 
@@ -25,8 +26,8 @@ type GithubMeta struct {
 	ImporterIPs                      []string                     `json:"importer"`
 }
 
-func main() {
-	fmt.Printf("# Getting the Github Meta Data at: %s", time.Now().String())
+func PrintGithubIPs() {
+	fmt.Printf("# Getting the Github Meta Data at: %s\n", time.Now().String())
 	url := "https://api.github.com/meta" // https://docs.github.com/en/free-pro-team@latest/rest/reference/meta
 	// Create a Resty Client
 	client := resty.New()
@@ -84,5 +85,68 @@ func main() {
 	for _, v := range responseData.ImporterIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
-	fmt.Printf("deny all;\n\n")
+}
+
+func PrintCloudflareIPV4IPs() {
+	fmt.Printf("# Getting the Cloudflare IPv4 Lists at: %s\n", time.Now().String())
+	url := "https://www.cloudflare.com/ips-v4" // https://docs.github.com/en/free-pro-team@latest/rest/reference/meta
+	// Create a Resty Client
+	client := resty.New()
+	resp, err := client.R().EnableTrace().Get(url)
+
+	if err != nil {
+		fmt.Printf("# Error making request to %s. %s\n", url, err.Error())
+		return
+	}
+
+	if resp.StatusCode() != 200 {
+		fmt.Printf("# HTTP Status is %d (not 200). Won't continue\n", resp.StatusCode())
+		return
+	}
+
+	ips := strings.Split(resp.String(), "\n")
+
+
+	fmt.Printf("# Now outputting IP data for nginx\n# Cloudflare IPs/CIDRs data for nginx\n")
+	fmt.Printf("# IPv4 IPs\n# =================\n")
+	for _, v := range ips {
+		fmt.Printf("allow %s;\n", v)
+	}
+	fmt.Printf("\n\n")
+}
+
+func PrintCloudflareIPV6IPs() {
+	fmt.Printf("# Getting the Cloudflare IPv6 Lists at: %s\n", time.Now().String())
+	url := "https://www.cloudflare.com/ips-v6" // https://docs.github.com/en/free-pro-team@latest/rest/reference/meta
+	// Create a Resty Client
+	client := resty.New()
+	resp, err := client.R().EnableTrace().Get(url)
+
+	if err != nil {
+		fmt.Printf("# Error making request to %s. %s\n", url, err.Error())
+		return
+	}
+
+	if resp.StatusCode() != 200 {
+		fmt.Printf("# HTTP Status is %d (not 200). Won't continue\n", resp.StatusCode())
+		return
+	}
+
+	ips := strings.Split(resp.String(), "\n")
+
+
+	fmt.Printf("# Now outputting IP data for nginx\n# Cloudflare IPs/CIDRs data for nginx\n")
+	fmt.Printf("# IPv4 IPs\n# =================\n")
+	for _, v := range ips {
+		fmt.Printf("allow %s;\n", v)
+	}
+	fmt.Printf("\n\n")
+}
+
+func main() {
+	fmt.Printf("\n")
+	PrintCloudflareIPV4IPs()
+	PrintCloudflareIPV6IPs()
+	PrintGithubIPs()
+	fmt.Printf("\n\ndeny all;\n\n")
 }
