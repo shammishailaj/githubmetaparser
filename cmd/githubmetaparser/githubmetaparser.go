@@ -50,39 +50,39 @@ func main() {
 	}
 
 	fmt.Printf("# Now outputting IP data for nginx\n# Github IPs/CIDRs data for nginx\n")
-	fmt.Printf("# Hooks IPs\n#=================\n")
+	fmt.Printf("# Hooks IPs\n# =================\n")
 	for _, v := range responseData.HooksIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# Web IPs\n#=================\n")
+	fmt.Printf("# Web IPs\n# =================\n")
 	for _, v := range responseData.WebIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# API IPs\n#=================\n")
+	fmt.Printf("# API IPs\n# =================\n")
 	for _, v := range responseData.ApiIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# Git IPs\n#=================\n")
+	fmt.Printf("# Git IPs\n# =================\n")
 	for _, v := range responseData.GitIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# Pages IPs\n#=================\n")
+	fmt.Printf("# Pages IPs\n# =================\n")
 	for _, v := range responseData.PagesIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# Importer IPs\n#=================\n")
+	fmt.Printf("# Importer IPs\n# =================\n")
 	for _, v := range responseData.ImporterIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
-	fmt.Printf("\n\n")
+	fmt.Printf("deny all;\n\n")
 }
