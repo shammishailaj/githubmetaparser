@@ -27,7 +27,7 @@ type GithubMeta struct {
 
 func main() {
 	fmt.Printf("# Getting the Github Meta Data at: %s", time.Now().String())
-	url := "https://api.github.com/meta"
+	url := "https://api.github.com/meta" // https://docs.github.com/en/free-pro-team@latest/rest/reference/meta
 	// Create a Resty Client
 	client := resty.New()
 	resp, err := client.R().EnableTrace().Get(url)
@@ -50,37 +50,37 @@ func main() {
 	}
 
 	fmt.Printf("# Now outputting IP data for nginx\n# Github IPs/CIDRs data for nginx\n")
-	fmt.Printf("# Hooks IPs\n=================\n")
+	fmt.Printf("# Hooks IPs\n#=================\n")
 	for _, v := range responseData.HooksIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# Web IPs\n=================\n")
+	fmt.Printf("# Web IPs\n#=================\n")
 	for _, v := range responseData.WebIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# API IPs\n=================\n")
+	fmt.Printf("# API IPs\n#=================\n")
 	for _, v := range responseData.ApiIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# Git IPs\n=================\n")
+	fmt.Printf("# Git IPs\n#=================\n")
 	for _, v := range responseData.GitIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# Pages IPs\n=================\n")
+	fmt.Printf("# Pages IPs\n#=================\n")
 	for _, v := range responseData.PagesIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
 	fmt.Printf("\n\n")
 
-	fmt.Printf("# Importer IPs\n=================\n")
+	fmt.Printf("# Importer IPs\n#=================\n")
 	for _, v := range responseData.ImporterIPs {
 		fmt.Printf("allow %s;\n", v)
 	}
