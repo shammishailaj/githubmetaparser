@@ -11,8 +11,11 @@ This project directly utilizes the following open sources projects:
 7. [Gopsutil - Load](https://github.com/shirou/gopsutil/load) for system load information (not being used currently)
 8. [Viper](https://github.com/spf13/viper) for reading configuration files
 
+Code tries to conform to the [Golang Standards Project layout](https://github.com/golang-standards/project-layout) template
 
 ## Building
+0. Install [Govvv](https://github.com/ahmetb/govvv)
+
 1. Clone the repository
     ```shell script
     git clone https://github.com/shammishailaj/metaparser.git
