@@ -19,7 +19,7 @@ test:
 
 win.exe = windows
 osx = darwin
-build/metaparser-%: $(SOURCE)
+bin/metaparser-%: $(SOURCE)
 	@mkdir -p $(@D)
 	CGO_ENABLED=0 GOOS=$(firstword $($*) $*) GOARCH=amd64 go build -o $@
 
