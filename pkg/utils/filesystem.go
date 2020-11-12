@@ -3,9 +3,11 @@ package utils
 import (
 	"errors"
 	"fmt"
+	log "github.com/sirupsen/logrus"
+	"gopkg.in/djherbis/times.v1"
 	"io/ioutil"
 	"os"
-	"syscall"
+	//"syscall"
 	"time"
 )
 
@@ -13,19 +15,31 @@ func (u *Utils) FileExists(path string) bool {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		return false
 	}
-
 	return true
 }
 
 func (u *Utils) DeleteFileByAge(path string, minAgeForDeletion time.Duration) (bool,error) {
 	u.Log.Infof("Deleting file: %s", path)
-	fileStat, fileStatErr := os.Stat(path)
+	/*fileStat,*/_, fileStatErr := os.Stat(path)
 	if os.IsNotExist(fileStatErr) {
 		u.Log.Errorf("Could not find file %s. %s", path, fileStatErr.Error())
 		return false, fileStatErr
 	} else {
-		tFileCreationTime := fileStat.Sys().(*syscall.Stat_t).Ctimespec
-		fileCreationTime := time.Unix(tFileCreationTime.Sec, tFileCreationTime.Nsec)
+		t, err := times.Stat(path)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+
+		//tFileCreationTime := fileStat.Sys().(*syscall.Stat_t).Ctimespec
+		//fileCreationTime := time.Unix(tFileCreationTime.Sec, tFileCreationTime.Nsec)
+		var fileCreationTime time.Time
+		if t.HasBirthTime() {
+			fileCreationTime = t.BirthTime()
+		}
+		if t.HasChangeTime() {
+			fileCreationTime = t.ChangeTime()
+		}
+
 		tCurrentTime := time.Now()
 		tFileAgeForDeletion := int64(minAgeForDeletion) // 10 secs X 60 = 600 secs  OR 10 mins
 

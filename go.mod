@@ -13,4 +13,5 @@ require (
 	github.com/spf13/cobra v1.1.1
 	github.com/spf13/viper v1.7.0
 	github.com/yookoala/gofast v0.4.0 // indirect
+	gopkg.in/djherbis/times.v1 v1.2.0
 )
