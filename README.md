@@ -10,6 +10,7 @@ This project directly utilizes the following open sources projects:
 6. [Gopsutil - CPU](https://github.com/shirou/gopsutil/cpu) for CPU information (not being used currently)
 7. [Gopsutil - Load](https://github.com/shirou/gopsutil/load) for system load information (not being used currently)
 8. [Viper](https://github.com/spf13/viper) for reading configuration files
+9. [Times](https://github.com/djherbis/times) for file times (atime, mtime, ctime, btime)
 
 Code tries to conform to the [Golang Standards Project layout](https://github.com/golang-standards/project-layout) template
 
@@ -31,15 +32,17 @@ Code tries to conform to the [Golang Standards Project layout](https://github.co
     make build
     ``` 
 
+#### Or, grab the [latest release](https://github.com/shammishailaj/metaparser/releases/latest) from the [releases](https://github.com/shammishailaj/metaparser/releases) page  
+
 ## Command Reference
 
 1. `help`
 
 To display help about a command
 
-Invoked By: `help`
+Invoked By: `metaparser help [command]`
 
-For detailed documentation use the inbuilt command `docs` to generate the documentation.
+For detailed documentation, use the inbuilt command `docs` to generate the documentation.
 For help on using the `docs` command use:
 
 ```shell script
