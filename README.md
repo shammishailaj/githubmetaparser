@@ -1,5 +1,5 @@
 # metaparser
-A project to parse Github Meta information to extract IPs/ CIDRs for whitelisting.
+A project to parse meta information to extract IPs/ CIDRs from Github, Cloudflare and AWS (and more) for whitelisting. The output is produced in an nginx compatible format so you can use the binary executable in your cron to automatically refresh the list of IPs.
 
 
 ## Building
@@ -16,6 +16,4 @@ A project to parse Github Meta information to extract IPs/ CIDRs for whitelistin
 
     ```shell script
     make build
-    ```
-
-The output is produced in an nginx compatible format so you can use the binary executable in your cron to automatically refresh the list of IPs. 
+    ``` 
