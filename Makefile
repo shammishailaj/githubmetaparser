@@ -23,7 +23,7 @@ endif
 build:
 	$(info GIT_BRANCH=$(GIT_BRANCH))
 	$(info VERSION=$(VERSION))
-	go build -mod vendor -work -v -o bin/metaparser-$(VERSION)-$(OS)-$(ARCH) cmd/metaparser/metaparser.go
+	govvv build -pkg "github.com/shammishailaj/metaparser/internal/app/metaparser/cmd" -mod vendor -work -v -o bin/metaparser-$(VERSION)-$(OS)-$(ARCH) cmd/metaparser/metaparser.go
 
 all: $(ALL)
 
@@ -38,7 +38,7 @@ win.exe = windows
 osx = darwin
 bin/metaparser-$(VERSION)-%: $(SOURCE)
 	@mkdir -p $(@D)
-	CGO_ENABLED=0 GOOS=$(firstword $($*) $*) GOARCH=amd64 go build -o $@ $(SOURCE)
+	CGO_ENABLED=0 GOOS=$(firstword $($*) $*) GOARCH=amd64 govvv build -pkg "github.com/shammishailaj/metaparser/internal/app/metaparser/cmd" -mod vendor -o $@ $(SOURCE)
 
 ifndef desc
 release:
