@@ -1,6 +1,16 @@
 # metaparser
 A project to parse meta information to extract IPs/ CIDRs from Github, Cloudflare and AWS (and more) for whitelisting. The output is produced in an nginx compatible format so you can use the binary executable in your cron to automatically refresh the list of IPs.
 
+This project directly utilizes the following open sources projects:
+1. [Cobra](https://github.com/spf13/cobra) for implementing the CLI interactions
+2. [Go-Resty](https://github.com/go-resty/resty) as its HTTP client library
+3. [Govvv](https://github.com/ahmetb/govvv) to add version information during its build process
+4. [Logrus](https://github.com/sirupsen/logrus) as its logging library
+5. [Dotsql](https://github.com/gchaincl/dotsql) for SQL migrations (not being used currently)
+6. [Gopsutil - CPU](https://github.com/shirou/gopsutil/cpu) for CPU information (not being used currently)
+7. [Gopsutil - Load](https://github.com/shirou/gopsutil/load) for system load information (not being used currently)
+8. [Viper](https://github.com/spf13/viper) for reading configuration files
+
 
 ## Building
 1. Clone the repository
@@ -17,3 +27,18 @@ A project to parse meta information to extract IPs/ CIDRs from Github, Cloudflar
     ```shell script
     make build
     ``` 
+
+## Command Reference
+
+1. `help`
+
+To display help about a command
+
+Invoked By: `help`
+
+For detailed documentation use the inbuilt command `docs` to generate the documentation.
+For help on using the `docs` command use:
+
+```shell script
+metaparser help docs
+```
