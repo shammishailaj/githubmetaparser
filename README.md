@@ -1,16 +1,16 @@
-# githubmetaparser
+# metaparser
 A project to parse Github Meta information to extract IPs/ CIDRs for whitelisting.
 
 
 ## Building
 1. Clone the repository
     ```shell script
-    git clone https://github.com/shammishailaj/githubmetaparser.git
+    git clone https://github.com/shammishailaj/metaparser.git
     ```
 2. Change into the directory
 
     ```shell script
-    cd githubmetaparser
+    cd metaparser
     ```
 3. Issue the build command
 
