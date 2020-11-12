@@ -1,12 +1,29 @@
-build:
-	go build -mod vendor -work -v -o bin/metaparser cmd/metaparser/metaparser.go
-
-SOURCE = $(wildcard *.go)
+SOURCE = $(wildcard cmd/metaparser/*.go)
 TAG ?= $(shell git describe --tags)
 GOBUILD = go build -ldflags '-w'
+GIT_BRANCH = $(shell git branch --show-current)
+VERSION = $(shell cat VERSION)-$(GIT_BRANCH)
+OS = $(shell go env GOHOSTOS)
+ARCH = $(shell go env GOHOSTARCH)
 
 ALL = $(foreach suffix,win.exe linux osx,\
-		bin/metaparser-$(suffix))
+		bin/metaparser-$(VERSION)-$(suffix))
+
+# If it is the "main" branch do not attach branch name suffix
+ifeq ($(GIT_BRANCH),main)
+		VERSION := $(shell cat VERSION)
+endif
+
+# If it is the "main" branch do not attach branch name suffix
+ifeq ($(GIT_BRANCH),master)
+	VERSION := $(shell cat VERSION)
+endif
+
+
+build:
+	$(info GIT_BRANCH=$(GIT_BRANCH))
+	$(info VERSION=$(VERSION))
+	go build -mod vendor -work -v -o bin/metaparser-$(VERSION)-$(OS)-$(ARCH) cmd/metaparser/metaparser.go
 
 all: $(ALL)
 
@@ -19,9 +36,9 @@ test:
 
 win.exe = windows
 osx = darwin
-bin/metaparser-%: $(SOURCE)
+bin/metaparser-$(VERSION)-%: $(SOURCE)
 	@mkdir -p $(@D)
-	CGO_ENABLED=0 GOOS=$(firstword $($*) $*) GOARCH=amd64 go build -o $@
+	CGO_ENABLED=0 GOOS=$(firstword $($*) $*) GOARCH=amd64 go build -o $@ $(SOURCE)
 
 ifndef desc
 release:
